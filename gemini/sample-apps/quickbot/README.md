@@ -40,7 +40,7 @@ This separation allows for clear development workflows and independent scaling o
 
 Quickbot provides a growing set of pre-built templates:
 
-* **[ADK Travel Concierge MultiAgent Template](./multi-agent-travel-concierge-with-adk/):** Leveraging the [ADK](https://google.github.io/adk-docs/) + [Agent Engine](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview) capabilities, and taking advantage from the usage of [Agent Garden](https://console.cloud.google.com/vertex-ai/agents/agent-garden), this [Travel MultiAgent](https://github.com/google/adk-samples/tree/main/python/agents/travel-concierge) orchestrates personalized travel experiences and provides support throughout the user’s journey, from initial planning to real-time itinerary alerts.
+* **[ADK Travel Concierge MultiAgent Template](./multi-agent-travel-concierge-with-adk/):** Leveraging the [ADK](https://google.github.io/adk-docs/) + [Agent Engine](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview) capabilities, and taking advantage from the usage of [Agent Garden](https://console.cloud.google.com/vertex-ai/agents/agent-garden), this [Travel MultiAgent](https://github.com/google/adk-recipes/tree/main/python/agents/travel-concierge) orchestrates personalized travel experiences and provides support throughout the user’s journey, from initial planning to real-time itinerary alerts.
   
   **Here's a look at our Travel Concierge MultiAgent in action!**
 

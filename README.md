@@ -106,7 +106,6 @@ This repository contains notebooks, code samples, sample apps, and other resourc
   - [Sensitive Data Protection (Cloud DLP) for Vertex AI Generative Models (PaLM2)](https://github.com/GoogleCloudPlatform/Sensitive-Data-Protection-for-Vertex-AI-PaLM2)
 - Conversational AI
   - [Contact Center AI Samples](https://github.com/GoogleCloudPlatform/contact-center-ai-samples)
-  - [Reimagining Customer Experience 360](https://github.com/GoogleCloudPlatform/dialogflow-ccai-omnichannel)
 - Document AI
   - [Document AI Samples](https://github.com/GoogleCloudPlatform/document-ai-samples)
 - Gemini in Google Cloud

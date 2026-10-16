@@ -1,46 +1,79 @@
 # lychee.toml — Link checker configuration for this repository
-# This file tells lychee which URLs and paths to ignore to avoid false
-# positives from local-dev servers, OAuth-protected Google console pages,
-# and bot-blocked sites like LinkedIn/Reddit.
+# Documentation: https://github.com/lycheeverse/lychee#configuration
 
+# ─── Scope ────────────────────────────────────────────────────────────────────
+include_verbatim = false
+
+# ─── Status codes to accept ───────────────────────────────────────────────────
+# 200 / 204  = OK
+# 301 / 302 / 307 / 308 = Redirects
+# 403 = Forbidden (returned by Reddit, Cloud Skills Boost, and some Google pages to bots)
+# 999 = LinkedIn bot-block (unofficial status code)
+accept = [200, 204, 301, 302, 307, 308, 403, 999]
+
+# ─── Retry & timeout ─────────────────────────────────────────────────────────
+max_retries = 2
+timeout = 30
+retry_wait_time = 2
+
+# ─── Redirects ───────────────────────────────────────────────────────────────
+max_redirects = 15
+
+# ─── Caching ────────────────────────────────────────────────────────────────
+cache = true
+max_cache_age = "1d"
+
+# ─── Exclusions ──────────────────────────────────────────────────────────────
 exclude = [
+    # Upstream defaults
     "https://fonts.gstatic.com/",
     "https://fonts.googleapis.com/",
     "http://go/github",
     "http://go/github-googlecloudplatform",
     "https://medium.com/",
 
-    # ─── Dev servers (never reachable in CI) ───────────────────────────────
-    "http://localhost",
-    "https://localhost",
-    "http://127.0.0.1",
+    # ─── Dev / local servers (never reachable in CI) ───────────────────────────
+    "^https?://(localhost|127\\.0\\.0\\.1)",
 
-    # ─── Bot-blocked sites (LinkedIn / Reddit return 999/403 to headless bots)
-    "https://www.linkedin.com",
-    "https://linkedin.com",
-    "https://www.reddit.com/prefs/apps",
+    # ─── Bot-blocked sites ─────────────────────────────────────────────────────
+    "https?://(www\\.)?linkedin\\.com",
+    "https?://(www\\.)?reddit\\.com",
 
-    # ─── Google login-gated / redirect-loop URLs (require OAuth)
-    "https://console.cloud.google.com/vertex-ai/agents/agent-garden",
-    "https://vertexai.google.com/",
+    # ─── Google login-gated / redirect-loop URLs (require OAuth) ───────────────
+    "https?://console\\.cloud\\.google\\.com",
+    "https?://vertexai\\.google\\.com",
 
-    # ─── Cloud Run deploy button (returns 400 to automated bots)
-    "https://deploy.cloud.run",
+    # ─── Cloud Run deploy button (returns 400 to automated bots) ──────────────
+    "https://deploy\\.cloud\\.run",
 
-    # ─── Cloud Skills Boost (redirects to skills.google — treated as error by lychee)
-    "https://www.cloudskillsboost.google",
+    # ─── Cloud Skills Boost (redirects to skills.google — treated as error) ───
+    "https?://(www\\.)?cloudskillsboost\\.google",
 
-    # ─── SQLite connection strings / non-HTTP URIs — mark as excluded for safety
+    # ─── Non-HTTP / URI schemes ────────────────────────────────────────────────
     "^sqlite\\+aiosqlite",
+    "^gs://",
+    "^mailto:",
+
+    # ─── Runner IP rate-limited / CAPTCHA-blocked Google Doc URLs ─────────────
+    "cloud\\.google\\.com/functions",
+    "cloud\\.google\\.com/generative-ai-app-builder",
+    "cloud\\.google\\.com/solutions/retail-product-discovery",
 ]
 
+# ─── Path exclusions ─────────────────────────────────────────────────────────
+# Exclude frontend app directories whose HTML/JS files contain template bindings
+# and root-relative asset paths that lychee cannot resolve without a web server.
 exclude_path = [
     ".github/actions/spelling",
     "conversation/chat-app/src/app.html",
     "gemini/sample-apps/photo-discovery/app/web/index.html",
-    "gemini/sample-apps/genwealth/ui/src/app/research",
+    "gemini/sample-apps/genwealth/ui",
     "search/web-app/templates",
+    "gemini/sample-apps/quickbot",
+    "gemini/multimodal-live-api/native-audio-websocket-demo-apps",
+    "gemini/multimodal-live-api/livekit-adk/app/static",
+    "gemini/agents/genai-experience-concierge/app",
+    "vision/sample-apps",
+    "search/gemini-enterprise/ge-demo-generator/app",
+    "agents/adk/new-hire-onboarding/app/static",
 ]
-
-# Keep CI quick — do not retry failing requests
-max_retries = 0

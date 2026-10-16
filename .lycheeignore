@@ -1,0 +1,23 @@
+# Dev / local servers
+^https?://localhost
+^https?://127\.0\.0\.1
+
+# Bot-blocked sites
+https://www.linkedin.com
+https://linkedin.com
+https://www.reddit.com
+
+# Login-gated console pages
+https://console.cloud.google.com
+https://vertexai.google.com
+
+# Cloud Run deploy
+https://deploy.cloud.run
+
+# Cloud Skills Boost
+https://www.cloudskillsboost.google
+
+# Non-HTTP URIs
+sqlite+aiosqlite:
+gs://
+mailto:

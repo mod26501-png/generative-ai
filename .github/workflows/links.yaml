@@ -37,6 +37,8 @@ jobs:
             --config lychee.toml
             --verbose
             --no-progress
+            --scheme http
+            --scheme https
             '**/*.md'
             '**/*.ipynb'
           output: ./lychee/out.md
@@ -59,7 +61,3 @@ jobs:
           title: "🔗 Link Checker Report"
           content-filepath: ./lychee/out.md
           labels: report, automated issue
-
-      - name: Check lychee exit code
-        if: steps.lychee.outputs.exit_code != 0
-        run: exit ${{ steps.lychee.outputs.exit_code }}

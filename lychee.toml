@@ -1,10 +1,39 @@
-exclude = [ 
-    'https://fonts.gstatic.com/',
-    'https://fonts.googleapis.com/',
-    'http://go/github',
-    'http://go/github-googlecloudplatform',
-    'https://medium.com/',
+# lychee.toml — Link checker configuration for this repository
+# This file tells lychee which URLs and paths to ignore to avoid false
+# positives from local-dev servers, OAuth-protected Google console pages,
+# and bot-blocked sites like LinkedIn/Reddit.
+
+exclude = [
+    "https://fonts.gstatic.com/",
+    "https://fonts.googleapis.com/",
+    "http://go/github",
+    "http://go/github-googlecloudplatform",
+    "https://medium.com/",
+
+    # ─── Dev servers (never reachable in CI) ───────────────────────────────
+    "http://localhost",
+    "https://localhost",
+    "http://127.0.0.1",
+
+    # ─── Bot-blocked sites (LinkedIn / Reddit return 999/403 to headless bots)
+    "https://www.linkedin.com",
+    "https://linkedin.com",
+    "https://www.reddit.com/prefs/apps",
+
+    # ─── Google login-gated / redirect-loop URLs (require OAuth)
+    "https://console.cloud.google.com/vertex-ai/agents/agent-garden",
+    "https://vertexai.google.com/",
+
+    # ─── Cloud Run deploy button (returns 400 to automated bots)
+    "https://deploy.cloud.run",
+
+    # ─── Cloud Skills Boost (redirects to skills.google — treated as error by lychee)
+    "https://www.cloudskillsboost.google",
+
+    # ─── SQLite connection strings / non-HTTP URIs — mark as excluded for safety
+    "^sqlite\\+aiosqlite",
 ]
+
 exclude_path = [
     ".github/actions/spelling",
     "conversation/chat-app/src/app.html",
@@ -13,4 +42,5 @@ exclude_path = [
     "search/web-app/templates",
 ]
 
+# Keep CI quick — do not retry failing requests
 max_retries = 0
